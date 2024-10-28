@@ -17,8 +17,6 @@
                 Inicia Tu Gym
               </a>
               <div>
-                <button class="btn btn-outline-success me-2" type="button">Ingresa</button>
-                <button class="btn btn-outline-success me-2" type="button">Registrate</button>
                 <button class="btn btn-outline-success me-2" type="button">Salir</button>
               </div>
             </div>
@@ -27,56 +25,58 @@
     <!-- fin navbar -->
 
     <!-- formulario usuario -->
-    <div class="card">
-        <div class="card-body">
-          Bienvenido mierda hijo de la gran puta
-          <br>
-          <p>sexo</p>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Selecciona</option>
-            <option value="1">hombre</option>
-            <option value="2">mujer</option>
+    <div class="card-body">
+      <h2>Calculadora de Calorías</h2>
+      <form id="calculadoraForm" onsubmit="calcularCalorias(event)">
+          <p>Sexo</p>
+          <select class="form-select" id="sexo" required>
+              <option value="">Selecciona</option>
+              <option value="hombre">Hombre</option>
+              <option value="mujer">Mujer</option>
           </select>
-
+  
           <p>Edad:</p>
           <div class="form-floating mb-3">
-            <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">tu edad</label>
+              <input type="number" class="form-control" id="edad" required>
+              <label for="edad">Tu edad</label>
           </div>
-
-          <p>Peso(kg)</p>
+  
+          <p>Peso (kg)</p>
           <div class="form-floating mb-3">
-            <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Tu peso</label>
+              <input type="number" step="0.1" class="form-control" id="peso" required>
+              <label for="peso">Tu peso</label>
           </div>
-
-          <p>Altura(cm)</p>
+  
+          <p>Altura (cm)</p>
           <div class="form-floating mb-3">
-            <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Tu altura en cm</label>
+              <input type="number" class="form-control" id="altura" required>
+              <label for="altura">Tu altura en cm</label>
           </div>
-
+  
           <p>¿Cuál es tu nivel de actividad física diaria?</p>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Selecciona</option>
-            <option value="1">Sedentario: poco o nada de ejrcicio al dia</option>
-            <option value="2">Actividad ligera: ejercicio ligero o deporte 1-3 días a la semana</option>
-            <option value="2">Actividad moderada: ejercicio moderado o deporte 3-5 días a la semana</option>
-            <option value="2">Actividad intensa: ejercicio intenso o deporte 6-7 días a la semana</option>
-            <option value="2">Actividad muy intensa: ejercicio muy intenso o trabajo físico y ejercicio diario</option>
+          <select class="form-select" id="actividad" required>
+              <option value="">Selecciona</option>
+              <option value="1.2">Sedentario: poco o nada de ejercicio al día</option>
+              <option value="1.375">Actividad ligera: ejercicio 1-3 días a la semana</option>
+              <option value="1.55">Actividad moderada: ejercicio 3-5 días a la semana</option>
+              <option value="1.725">Actividad intensa: ejercicio 6-7 días a la semana</option>
+              <option value="1.9">Actividad muy intensa: ejercicio muy intenso diario</option>
           </select>
-
+  
           <p>¿Cuál es tu objetivo?</p>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Selecciona</option>
-            <option value="1">Aumentar masa muscular</option>
-            <option value="2">Bajar grasa corporal</option>
-            <option value="2">Mantener peso actual</option>
+          <select class="form-select" id="objetivo" required>
+              <option value="">Selecciona</option>
+              <option value="superavit">Aumentar masa muscular</option>
+              <option value="deficit">Bajar grasa corporal</option>
+              <option value="mantener">Mantener peso actual</option>
           </select>
-
-          <a href="" class="btn btn-primary btn-lg">Calcular</a>
-    </div>
+  
+          <button type="submit" class="btn btn-primary btn-lg mt-3">Calcular</button>
+      </form>
+  </div>
+    <!-- formulario usuario -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
 </body>
 </html>

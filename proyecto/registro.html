@@ -18,8 +18,6 @@
           Inicia Tu Gym
         </a>
         <div>
-          <button class="btn btn-outline-success me-2" type="button">Ingresa</button>
-          <button class="btn btn-outline-success me-2" type="button">Registrate</button>
           <button class="btn btn-outline-success me-2" type="button">Salir</button>
         </div>
       </div>
@@ -28,25 +26,27 @@
 <!-- fin navbar -->
 
 <!-- formulario registro -->
-<div class="form-floating mb-3">
-    <input type="text" class="form-control" id="floatingInput" placeholder="Juan">
-    <label for="floatingInput">Tu Nombre</label>
+<form id="registroForm" onsubmit="guardarUsuario(event)">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="usuario" placeholder="Juan" required>
+    <label for="usuario">Tu usuario</label>
   </div>
 
-  <div class="form-floating">
-    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword">Password</label>
+  <div class="form-floating mb-3">
+    <input type="password" class="form-control" id="password" placeholder="Password" required>
+    <label for="password">Password</label>
   </div>
 
-  <div class="form-floating">
-    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword">Password</label>
+  <div class="form-floating mb-3">
+    <input type="password" class="form-control" id="confirmPassword" placeholder="Password" required>
+    <label for="confirmPassword">Repite tu password</label>
   </div>
-  <!-- fin formulario registro -->
 
-  <!-- boton registo -->
-  <a href="form-usuario.html" class="btn btn-primary btn-lg">Registrate</a>
+  <button type="submit" class="btn btn-primary btn-lg">Registrate</button>
+</form>
+<!-- fin formulario registro -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="main.js"></script>
 </body>
 </html>
