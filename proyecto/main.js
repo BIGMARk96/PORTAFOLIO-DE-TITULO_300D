@@ -1,4 +1,3 @@
-// Add JS here
 function guardarUsuario(event) {
     event.preventDefault();
     
@@ -107,4 +106,23 @@ function calcularCalorias(event) {
 
   // Redirigir a la página de resultados
   window.location.href = 'rutina-cal.html';
+}
+
+// Función para mostrar el mensaje de bienvenida
+function mostrarMensajeBienvenida() {
+  const welcomeMessage = document.getElementById('welcomeMessage');
+  const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+  
+  if (welcomeMessage && usuarioActual) {
+      welcomeMessage.textContent = `Bienvenido ${usuarioActual.usuario}`;
+  }
+}
+
+// Ejecutar cuando el DOM esté cargado
+document.addEventListener('DOMContentLoaded', mostrarMensajeBienvenida);
+
+function cerrarSesion() {
+  localStorage.removeItem('usuarioActual');
+  localStorage.removeItem('resultadosCalorias');
+  window.location.href = 'index.html';
 }

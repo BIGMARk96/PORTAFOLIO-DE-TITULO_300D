@@ -12,12 +12,13 @@
   <header>
     <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.html">
           <img src="image/dumbbells.svg" alt="Logo" width="60" height="54" class="d-inline-block align-text-top">
           Inicia Tu Gym
         </a>
-        <div>
-          <button class="btn btn-outline-success me-2" type="button">Salir</button>
+        <div class="d-flex align-items-center">
+          <span class="me-3" id="welcomeMessage"></span>
+          <button class="btn btn-outline-success me-2" type="button" onclick="cerrarSesion()">Salir</button>
         </div>
       </div>
     </nav>
@@ -27,11 +28,9 @@
   <!-- bienvenida -->
   <div class="card">
     <div class="card-body">
-      Bienvenido mierda hijo de la gran puta
-      
-      <a href="registro.html" class="btn btn-primary btn-lg">Registrate</a>
-      <a href="ingresa.html" class="btn btn-primary btn-lg">ingresa</a>
-      
+      <div id="welcomeContainer">
+        <!-- El contenido se llenará dinámicamente -->
+      </div>
     </div>
   </div>
   <!-- fin bienvenida -->
@@ -41,5 +40,27 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <script src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+      const welcomeContainer = document.getElementById('welcomeContainer');
+      
+      if (usuarioActual) {
+        welcomeContainer.innerHTML = `
+          <h2>¡Hola ${usuarioActual.usuario}!</h2>
+          <p>Bienvenido a tu espacio personal de entrenamiento</p>
+          <a href="form-usuario.html" class="btn btn-primary btn-lg mt-3">Ir a Calculadora de Calorías y Rutina</a>
+        `;
+      } else {
+        welcomeContainer.innerHTML = `
+          <p>Bienvenido a Inicia Tu Gym</p>
+          <a href="registro.html" class="btn btn-primary btn-lg">Registrate</a>
+          <a href="ingresa.html" class="btn btn-primary btn-lg">ingresa</a>
+        `;
+      }
+    });
+  </script>
 </body>
 </html>

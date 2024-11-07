@@ -12,12 +12,13 @@
     <header>
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="index.html">
             <img src="image/dumbbells.svg" alt="Logo" width="60" height="54" class="d-inline-block align-text-top">
             Inicia Tu Gym
           </a>
-          <div>
-            <button class="btn btn-outline-success me-2" type="button">Salir</button>
+          <div class="d-flex align-items-center">
+            <span class="me-3" id="welcomeMessage"></span>
+            <button class="btn btn-outline-success me-2" type="button" onclick="cerrarSesion()">Salir</button>
           </div>
         </div>
       </nav>
@@ -32,6 +33,41 @@
                 <div id="resultados"></div>
             </div>
         </div>
+    </div>
+
+    <!-- Rutina Semanal -->
+    <div class="container mt-5">
+      <div class="card">
+          <div class="card-body">
+              <h2>Tu Rutina Semanal</h2>
+              <div class="table-responsive">
+                  <table class="table table-bordered">
+                      <thead class="table-success">
+                          <tr>
+                              <th>Lunes</th>
+                              <th>Martes</th>
+                              <th>Miércoles</th>
+                              <th>Jueves</th>
+                              <th>Viernes</th>
+                              <th>Sábado</th>
+                              <th>Domingo</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -63,6 +99,10 @@
                 </div>
             `;
         };
+        
+    
+    
+    
     </script>
 </body>
 </html>
