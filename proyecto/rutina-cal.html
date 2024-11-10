@@ -70,8 +70,16 @@
       </div>
     </div>
 
+    <!-- Botón de descarga -->
+    <div class="container mt-3 text-center">
+        <button class="btn btn-success btn-lg" onclick="descargarPDF()">
+            Descargar Rutina PDF
+        </button>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         window.onload = function() {
             const resultados = JSON.parse(localStorage.getItem('resultadosCalorias'));
@@ -98,11 +106,75 @@
                     </ul>
                 </div>
             `;
+
+            if (resultados && resultados.rutina) {
+                const tbody = document.querySelector('table tbody tr');
+                const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+                
+                dias.forEach((dia, index) => {
+                    const rutinaDia = resultados.rutina[dia];
+                    if (rutinaDia) {
+                        tbody.cells[index].innerHTML = `
+                            <h5>${rutinaDia.titulo}</h5>
+                            <ul class="list-unstyled">
+                                ${rutinaDia.ejercicios.map(ej => `<li>${ej}</li>`).join('')}
+                            </ul>
+                        `;
+                    } else {
+                        tbody.cells[index].innerHTML = '<p class="text-muted">Descanso</p>';
+                    }
+                });
+            }
         };
         
-    
-    
-    
+        function descargarPDF() {
+            const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+            const resultados = JSON.parse(localStorage.getItem('resultadosCalorias'));
+            
+            // Crear contenedor para el PDF
+            const element = document.createElement('div');
+            element.innerHTML = `
+                <div style="padding: 20px;">
+                    <h1 style="text-align: center;">Rutina de Entrenamiento - Inicia Tu Gym</h1>
+                    <h2 style="text-align: center;">Plan personalizado para ${usuarioActual.usuario}</h2>
+                    
+                    <div style="margin-top: 20px;">
+                        <h3>Información Nutricional</h3>
+                        <p>Calorías Diarias: ${resultados.caloriasDiarias} kcal</p>
+                        <p>TMB: ${resultados.tmb} kcal</p>
+                        <p>Objetivo: ${resultados.objetivo === 'superavit' ? 'Aumentar masa muscular' : 
+                                    resultados.objetivo === 'deficit' ? 'Bajar grasa corporal' : 
+                                    'Mantener peso actual'}</p>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <h3>Rutina de Entrenamiento</h3>
+                        ${Object.entries(resultados.rutina).map(([dia, rutina]) => `
+                            <div style="margin-top: 10px;">
+                                <h4>${dia} - ${rutina.titulo}</h4>
+                                <ul>
+                                    ${rutina.ejercicios.map(ejercicio => `
+                                        <li>${ejercicio}</li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Configuración del PDF
+            const opt = {
+                margin: 1,
+                filename: 'rutina-entrenamiento.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Generar y descargar el PDF
+            html2pdf().set(opt).from(element).save();
+        }
     </script>
 </body>
 </html>
