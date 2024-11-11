@@ -57,13 +57,28 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+      const nutricionistaActual = JSON.parse(localStorage.getItem('nutricionistaActual'));
       const welcomeContainer = document.getElementById('welcomeContainer');
+      const accesoNutriContainer = document.querySelector('.card.mt-4'); // Contenedor de acceso nutricionista
       
-      if (usuarioActual) {
+      if (nutricionistaActual) {
+        welcomeContainer.innerHTML = `
+          <h2>¡Hola ${nutricionistaActual.nombre}!</h2>
+          <p>Bienvenido a tu espacio de trabajo</p>
+          <a href="panel-nutri.html" class="btn btn-success btn-lg mt-3">Ir a tu Panel</a>
+        `;
+        // Ocultar sección de acceso nutricionista
+        if (accesoNutriContainer) {
+          accesoNutriContainer.style.display = 'none';
+        }
+      } else if (usuarioActual) {
         welcomeContainer.innerHTML = `
           <h2>¡Hola ${usuarioActual.usuario}!</h2>
           <p>Bienvenido a tu espacio personal de entrenamiento</p>
-          <a href="form-usuario.html" class="btn btn-primary btn-lg mt-3">Ir a Calculadora de Calorías y Rutina</a>
+          <div class="d-flex gap-3 justify-content-center">
+            <a href="form-usuario.html" class="btn btn-primary btn-lg mt-3">Ir a Calculadora de Calorías y Rutina</a>
+            <a href="gestion-hora.html" class="btn btn-success btn-lg mt-3">Gestionar Horas Nutricionista</a>
+          </div>
         `;
       } else {
         welcomeContainer.innerHTML = `

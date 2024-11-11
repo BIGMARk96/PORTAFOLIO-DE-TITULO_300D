@@ -114,21 +114,26 @@ function calcularCalorias(event) {
 
 // Función para mostrar el mensaje de bienvenida
 function mostrarMensajeBienvenida() {
-  const welcomeMessage = document.getElementById('welcomeMessage');
-  const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
-  
-  if (welcomeMessage && usuarioActual) {
-      welcomeMessage.textContent = `Bienvenido ${usuarioActual.usuario}`;
-  }
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+    const nutricionistaActual = JSON.parse(localStorage.getItem('nutricionistaActual'));
+    
+    if (welcomeMessage) {
+        if (nutricionistaActual) {
+            welcomeMessage.textContent = `Nutricionista: ${nutricionistaActual.nombre}`;
+        } else if (usuarioActual) {
+            welcomeMessage.textContent = `Bienvenido ${usuarioActual.usuario}`;
+        }
+    }
 }
 
 // Ejecutar cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', mostrarMensajeBienvenida);
 
 function cerrarSesion() {
-  localStorage.removeItem('usuarioActual');
-  localStorage.removeItem('resultadosCalorias');
-  window.location.href = 'index.html';
+    localStorage.removeItem('nutricionistaActual');
+    localStorage.removeItem('usuarioActual');
+    window.location.href = 'index.html';
 }
 
 function generarRutina(actividad, objetivo) {
@@ -334,4 +339,4 @@ function validarIngresoNutri(event) {
     } else {
         alert('Credenciales incorrectas');
     }
-}
+} 
