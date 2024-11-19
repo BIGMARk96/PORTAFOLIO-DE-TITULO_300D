@@ -28,17 +28,32 @@
 <!-- formulario registro -->
 <form id="registroForm" onsubmit="guardarUsuario(event)">
   <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="usuario" placeholder="Juan" required>
-    <label for="usuario">Tu usuario</label>
+    <input type="text" class="form-control" id="usuario" 
+           pattern=".{6,}" 
+           title="El usuario debe tener al menos 6 caracteres"
+           placeholder="Juan" required>
+    <label for="usuario">Tu usuario (mínimo 6 caracteres)</label>
   </div>
 
   <div class="form-floating mb-3">
-    <input type="password" class="form-control" id="password" placeholder="Password" required>
-    <label for="password">Password</label>
+    <input type="email" class="form-control" id="email" 
+           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+           title="Ingresa un correo electrónico válido"
+           placeholder="nombre@ejemplo.com" required>
+    <label for="email">Tu correo electrónico</label>
   </div>
 
   <div class="form-floating mb-3">
-    <input type="password" class="form-control" id="confirmPassword" placeholder="Password" required>
+    <input type="password" class="form-control" id="password" 
+           pattern="(?=.*[A-Z])(?=.*[0-9]).{6,}"
+           title="La contraseña debe tener al menos 6 caracteres, una mayúscula y un número"
+           placeholder="Password" required>
+    <label for="password">Password (mínimo 6 caracteres, una mayúscula y un número)</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="password" class="form-control" id="confirmPassword" 
+           placeholder="Password" required>
     <label for="confirmPassword">Repite tu password</label>
   </div>
 

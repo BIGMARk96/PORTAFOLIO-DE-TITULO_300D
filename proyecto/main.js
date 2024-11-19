@@ -2,8 +2,29 @@ function guardarUsuario(event) {
     event.preventDefault();
     
     const usuario = document.getElementById('usuario').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+
+    // Validar longitud del usuario
+    if (usuario.length < 6) {
+        alert('El usuario debe tener al menos 6 caracteres');
+        return;
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+        alert('Por favor ingresa un correo electrónico válido');
+        return;
+    }
+
+    // Validar contraseña
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+        alert('La contraseña debe tener al menos 6 caracteres, una mayúscula y un número');
+        return;
+    }
 
     // Validar que las contraseñas coincidan
     if (password !== confirmPassword) {
@@ -11,29 +32,19 @@ function guardarUsuario(event) {
         return;
     }
 
-    // Crear objeto de usuario
-    const nuevoUsuario = {
-        usuario: usuario,
-        password: password
+    const user = {
+        usuario,
+        email,
+        password,
+        tipo: 'usuario'
     };
 
-    // Obtener usuarios existentes o crear array vacío
     let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-    // Verificar si el usuario ya existe
-    if (usuarios.some(user => user.usuario === usuario)) {
-        alert('Este nombre de usuario ya existe');
-        return;
-    }
-
-    // Agregar nuevo usuario
-    usuarios.push(nuevoUsuario);
-
-    // Guardar en localStorage
+    usuarios.push(user);
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
-    alert('Usuario registrado exitosamente');
-    window.location.href = 'ingresa.html'; // Cambiamos la redirección
+    alert('Registro exitoso');
+    window.location.href = 'index.html';
 }
 
 function validarIngreso(event) {
@@ -293,6 +304,38 @@ function guardarNutricionista(event) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+
+    // Validar nombre y apellido
+    if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ]+ [A-Za-zÁáÉéÍíÓóÚúÑñ]+$/.test(nombre)) {
+        alert('Por favor ingresa nombre y apellido válidos');
+        return;
+    }
+
+    // Validar longitud del usuario
+    if (usuario.length < 6) {
+        alert('El usuario debe tener al menos 6 caracteres');
+        return;
+    }
+
+    // Validar licencia
+    if (!/^[0-9]{8}$/.test(numeroLicencia)) {
+        alert('La licencia debe tener exactamente 8 dígitos numéricos');
+        return;
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+        alert('Por favor ingresa un correo electrónico válido');
+        return;
+    }
+
+    // Validar contraseña
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+        alert('La contraseña debe tener al menos 6 caracteres, una mayúscula y un número');
+        return;
+    }
 
     // Validar que las contraseñas coincidan
     if (password !== confirmPassword) {
