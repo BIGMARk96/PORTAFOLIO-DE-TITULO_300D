@@ -13,11 +13,18 @@
     <header>
         <nav class="navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
-                    <img src="image/dumbbells.svg" alt="Logo" width="60" height="54" class="d-inline-block align-text-top">
-                    Inicia Tu Gym
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="image/dumbbells.svg" alt="Logo" width="80" height="74" class="d-inline-block">
+                    <span class="brand-text ms-3">Inicia Tu Gym</span>
                 </a>
                 <div class="d-flex align-items-center">
+                    <span class="me-3" id="welcomeMessage"></span>
+                    <div class="position-relative d-inline-block me-3">
+                        <i class="bi bi-bell-fill fs-5" style="cursor: pointer;" onclick="mostrarNotificaciones()"></i>
+                        <span id="notificacionIndicador" class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle d-none">
+                            <span class="visually-hidden">Notificaciones sin leer</span>
+                        </span>
+                    </div>
                     <button class="btn btn-outline-custom me-2" type="button" onclick="cerrarSesion()">Salir</button>
                 </div>
             </div>
