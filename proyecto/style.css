@@ -56,3 +56,26 @@
 #welcomeMessage {
     color: #ffffff;
 }
+
+/* Estilos para el contenedor de horarios */
+.horarios-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.horarios-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.horarios-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.horarios-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.horarios-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

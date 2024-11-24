@@ -30,7 +30,7 @@
 <body>
     <!-- navbar -->
     <header>
-        <nav class="navbar bg-body-tertiary">
+        <nav class="navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
                     <img src="image/dumbbells.svg" alt="Logo" width="60" height="54" class="d-inline-block align-text-top">
@@ -44,19 +44,27 @@
                             <span class="visually-hidden">Notificaciones sin leer</span>
                         </span>
                     </div>
-                    <button class="btn btn-outline-success me-2" type="button" onclick="cerrarSesion()">Salir</button>
+                    <button class="btn btn-outline-custom me-2" type="button" onclick="cerrarSesion()">Salir</button>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Horarios Disponibles con Nutricionistas</h2>
-        
-        <div class="row" id="listaHorariosNutris">
-            <!-- Los horarios se cargarán dinámicamente aquí -->
+    <!-- Contenido principal -->
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">Horarios Disponibles con Nutricionistas</h2>
+                        <div class="row" id="listaHorariosNutris">
+                            <!-- Los horarios se cargarán dinámicamente aquí -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>
@@ -96,7 +104,7 @@
                                 <strong>Fecha:</strong> ${horario.fecha}<br>
                                 <strong>Horario:</strong> ${horario.horaInicio} - ${horario.horaFin}
                             </p>
-                            <button class="btn btn-success" onclick="reservarHora('${horario.fecha}', '${horario.horaInicio}', '${nutricionista.usuario}')">
+                            <button class="btn btn-custom-yellow" onclick="reservarHora('${horario.fecha}', '${horario.horaInicio}', '${nutricionista.usuario}')">
                                 Reservar Hora
                             </button>
                         </div>
@@ -106,7 +114,7 @@
                 return `
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
-                            <div class="card-header bg-success text-white">
+                            <div class="card-header">
                                 <h5 class="card-title mb-0">Dr(a). ${nutricionista.nombre}</h5>
                                 <small>Licencia: ${nutricionista.numeroLicencia}</small>
                             </div>
