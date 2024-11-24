@@ -3,88 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>formulario</title>
+    <title>Calculadora de Calorías</title>
     <link href="./style.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <!-- navbar -->
     <header>
-        <nav class="navbar bg-body-tertiary">
+        <nav class="navbar">
             <div class="container-fluid">
-              <a class="navbar-brand" href="index.html">
-                <img src="image/dumbbells.svg" alt="Logo" width="60" height="54" class="d-inline-block align-text-top">
-                Inicia Tu Gym
-              </a>
-              <div class="d-flex align-items-center">
-                  <span class="me-3" id="welcomeMessage"></span>
-                  <div class="position-relative d-inline-block me-3">
-                      <i class="bi bi-bell-fill fs-5" style="cursor: pointer;" onclick="mostrarNotificaciones()"></i>
-                      <span id="notificacionIndicador" class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle d-none">
-                          <span class="visually-hidden">Notificaciones sin leer</span>
-                      </span>
-                  </div>
-                  <button class="btn btn-outline-success me-2" type="button" onclick="cerrarSesion()">Salir</button>
-              </div>
+                <a class="navbar-brand" href="index.html">
+                    <img src="image/dumbbells.svg" alt="Logo" width="60" height="54" class="d-inline-block align-text-top">
+                    Inicia Tu Gym
+                </a>
+                <div class="d-flex align-items-center">
+                    <span class="me-3" id="welcomeMessage"></span>
+                    <div class="position-relative d-inline-block me-3">
+                        <i class="bi bi-bell-fill fs-5" style="cursor: pointer;" onclick="mostrarNotificaciones()"></i>
+                        <span id="notificacionIndicador" class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle d-none">
+                            <span class="visually-hidden">Notificaciones sin leer</span>
+                        </span>
+                    </div>
+                    <button class="btn btn-outline-custom me-2" type="button" onclick="cerrarSesion()">Salir</button>
+                </div>
             </div>
-          </nav>
+        </nav>
     </header>
-    <!-- fin navbar -->
 
-    <!-- formulario usuario -->
-    <div class="card-body">
-      <h2>Calculadora de Calorías</h2>
-      <form id="calculadoraForm" onsubmit="calcularCalorias(event)">
-          <p>Sexo</p>
-          <select class="form-select" id="sexo" required>
-              <option value="">Selecciona</option>
-              <option value="hombre">Hombre</option>
-              <option value="mujer">Mujer</option>
-          </select>
-  
-          <p>Edad:</p>
-          <div class="form-floating mb-3">
-              <input type="number" class="form-control" id="edad" required>
-              <label for="edad">Tu edad</label>
-          </div>
-  
-          <p>Peso (kg)</p>
-          <div class="form-floating mb-3">
-              <input type="number" step="0.1" class="form-control" id="peso" required>
-              <label for="peso">Tu peso</label>
-          </div>
-  
-          <p>Altura (cm)</p>
-          <div class="form-floating mb-3">
-              <input type="number" class="form-control" id="altura" required>
-              <label for="altura">Tu altura en cm</label>
-          </div>
-  
-          <p>¿Cuál es tu nivel de actividad física diaria?</p>
-          <select class="form-select" id="actividad" required>
-              <option value="">Selecciona</option>
-              <option value="1.2">Sedentario: poco o nada de ejercicio al día</option>
-              <option value="1.375">Actividad ligera: ejercicio 1-3 días a la semana</option>
-              <option value="1.55">Actividad moderada: ejercicio 3-5 días a la semana</option>
-              <option value="1.725">Actividad intensa: ejercicio 6-7 días a la semana</option>
-              <option value="1.9">Actividad muy intensa: ejercicio muy intenso diario</option>
-          </select>
-  
-          <p>¿Cuál es tu objetivo?</p>
-          <select class="form-select" id="objetivo" required>
-              <option value="">Selecciona</option>
-              <option value="superavit">Aumentar masa muscular</option>
-              <option value="deficit">Bajar grasa corporal</option>
-              <option value="mantener">Mantener peso actual</option>
-          </select>
-  
-          <button type="submit" class="btn btn-primary btn-lg mt-3">Calcular</button>
-      </form>
-  </div>
-    <!-- formulario usuario -->
+    <!-- Contenido principal -->
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">Calculadora de Calorías</h2>
+                        <form id="calculadoraForm" onsubmit="calcularCalorias(event)">
+                            <div class="mb-4">
+                                <label class="form-label">Sexo</label>
+                                <select class="form-select" id="sexo" required>
+                                    <option value="">Selecciona</option>
+                                    <option value="hombre">Hombre</option>
+                                    <option value="mujer">Mujer</option>
+                                </select>
+                            </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                            <div class="mb-4">
+                                <label class="form-label">Edad</label>
+                                <input type="number" class="form-control" id="edad" placeholder="Tu edad" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Peso (kg)</label>
+                                <input type="number" step="0.1" class="form-control" id="peso" placeholder="Tu peso" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Altura (cm)</label>
+                                <input type="number" class="form-control" id="altura" placeholder="Tu altura en cm" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Nivel de actividad física diaria</label>
+                                <select class="form-select" id="actividad" required>
+                                    <option value="">Selecciona</option>
+                                    <option value="1.2">Sedentario: poco o nada de ejercicio al día</option>
+                                    <option value="1.375">Actividad ligera: ejercicio 1-3 días a la semana</option>
+                                    <option value="1.55">Actividad moderada: ejercicio 3-5 días a la semana</option>
+                                    <option value="1.725">Actividad intensa: ejercicio 6-7 días a la semana</option>
+                                    <option value="1.9">Actividad muy intensa: ejercicio muy intenso diario</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Objetivo</label>
+                                <select class="form-select" id="objetivo" required>
+                                    <option value="">Selecciona</option>
+                                    <option value="superavit">Aumentar masa muscular</option>
+                                    <option value="deficit">Bajar grasa corporal</option>
+                                    <option value="mantener">Mantener peso actual</option>
+                                </select>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-custom-yellow btn-lg">Calcular</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
