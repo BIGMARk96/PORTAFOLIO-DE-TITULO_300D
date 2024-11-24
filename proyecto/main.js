@@ -349,12 +349,17 @@ function guardarNutricionista(event) {
         numeroLicencia,
         email,
         password,
-        tipo: 'nutricionista'
+        tipo: 'nutricionista',
+        fechaRegistro: new Date().toISOString()
     };
 
     let nutricionistas = JSON.parse(localStorage.getItem('nutricionistas')) || [];
     nutricionistas.push(nutricionista);
     localStorage.setItem('nutricionistas', JSON.stringify(nutricionistas));
+
+    // Mostrar en consola
+    console.log('Nuevo nutricionista registrado:', nutricionista);
+    console.log('Lista completa de nutricionistas:', nutricionistas);
 
     alert('Registro exitoso');
     window.location.href = 'index.html';
@@ -382,4 +387,54 @@ function validarIngresoNutri(event) {
     } else {
         alert('Credenciales incorrectas');
     }
+}
+
+// Funciones para el manejo de notificaciones
+function agregarNotificacion(usuarioId, mensaje, tipo) {
+    let notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || {};
+    if (!notificaciones[usuarioId]) {
+        notificaciones[usuarioId] = [];
+    }
+    notificaciones[usuarioId].push({
+        mensaje,
+        tipo,
+        fecha: new Date().toISOString(),
+        leida: false
+    });
+    localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
+}
+
+function obtenerNotificacionesSinLeer(usuarioId) {
+    const notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || {};
+    return (notificaciones[usuarioId] || []).filter(n => !n.leida);
+}
+
+function marcarNotificacionesComoLeidas(usuarioId) {
+    let notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || {};
+    if (notificaciones[usuarioId]) {
+        notificaciones[usuarioId] = notificaciones[usuarioId].map(n => ({...n, leida: true}));
+        localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
+    }
+}
+
+function verNutricionistasEnConsola() {
+    const nutricionistas = JSON.parse(localStorage.getItem('nutricionistas')) || [];
+    console.log('=== Lista de Nutricionistas ===');
+    console.table(nutricionistas);
+    console.log(`Total de nutricionistas registrados: ${nutricionistas.length}`);
+    
+    // Estadísticas adicionales
+    const estadisticas = {
+        totalNutricionistas: nutricionistas.length,
+        nutricionistasPorMes: {},
+    };
+
+    nutricionistas.forEach(nutri => {
+        const fecha = new Date(nutri.fechaRegistro);
+        const mes = fecha.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+        estadisticas.nutricionistasPorMes[mes] = (estadisticas.nutricionistasPorMes[mes] || 0) + 1;
+    });
+
+    console.log('=== Estadísticas ===');
+    console.log(estadisticas);
 } 

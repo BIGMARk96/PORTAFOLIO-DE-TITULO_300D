@@ -7,6 +7,7 @@
     <link href='/style.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <!-- navbar -->
@@ -19,6 +20,12 @@
                 </a>
                 <div class="d-flex align-items-center">
                     <span class="me-3" id="welcomeMessage"></span>
+                    <div class="position-relative d-inline-block me-3">
+                        <i class="bi bi-bell-fill fs-5" style="cursor: pointer;" onclick="mostrarNotificaciones()"></i>
+                        <span id="notificacionIndicador" class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle d-none">
+                            <span class="visually-hidden">Notificaciones sin leer</span>
+                        </span>
+                    </div>
                     <button class="btn btn-outline-success me-2" type="button" onclick="cerrarSesion()">Salir</button>
                 </div>
             </div>
@@ -235,17 +242,25 @@
 
         function gestionarReserva(fecha, hora, usuarioId, estado) {
             let reservas = JSON.parse(localStorage.getItem('reservasNutri')) || [];
-            const nutricionistaId = JSON.parse(localStorage.getItem('nutricionistaActual')).usuario;
-
+            const nutricionistaActual = JSON.parse(localStorage.getItem('nutricionistaActual'));
+            
             reservas = reservas.map(r => {
                 if (r.fecha === fecha && r.hora === hora && 
-                    r.usuarioId === usuarioId && r.nutricionistaId === nutricionistaId) {
+                    r.usuarioId === usuarioId && r.nutricionistaId === nutricionistaActual.usuario) {
                     return { ...r, estado };
                 }
                 return r;
             });
 
             localStorage.setItem('reservasNutri', JSON.stringify(reservas));
+            
+            // Agregar notificación para el usuario
+            const mensaje = estado === 'confirmada' 
+                ? `Tu hora para el día ${fecha} a las ${hora} ha sido confirmada por Dr(a). ${nutricionistaActual.nombre}`
+                : `Tu hora para el día ${fecha} a las ${hora} ha sido rechazada por Dr(a). ${nutricionistaActual.nombre}`;
+            
+            agregarNotificacion(usuarioId, mensaje, estado);
+            
             actualizarListaReservas();
             actualizarListaReservasConfirmadas();
             alert(`Reserva ${estado} exitosamente`);
