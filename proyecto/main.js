@@ -134,12 +134,31 @@ function mostrarMensajeBienvenida() {
             welcomeMessage.textContent = `Nutricionista: ${nutricionistaActual.nombre}`;
         } else if (usuarioActual) {
             welcomeMessage.textContent = `Bienvenido ${usuarioActual.usuario}`;
+            // Verificar notificaciones sin leer
+            const notificacionesSinLeer = obtenerNotificacionesSinLeer(usuarioActual.usuario);
+            const indicador = document.getElementById('notificacionIndicador');
+            if (notificacionesSinLeer.length > 0) {
+                indicador.classList.remove('d-none');
+            } else {
+                indicador.classList.add('d-none');
+            }
         }
     }
 }
 
 // Ejecutar cuando el DOM esté cargado
-document.addEventListener('DOMContentLoaded', mostrarMensajeBienvenida);
+document.addEventListener('DOMContentLoaded', function() {
+    mostrarMensajeBienvenida();
+    
+    const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+    if (usuarioActual) {
+        const notificacionesSinLeer = obtenerNotificacionesSinLeer(usuarioActual.usuario);
+        const indicador = document.getElementById('notificacionIndicador');
+        if (notificacionesSinLeer.length > 0) {
+            indicador.classList.remove('d-none');
+        }
+    }
+});
 
 function cerrarSesion() {
     localStorage.removeItem('nutricionistaActual');
@@ -437,4 +456,64 @@ function verNutricionistasEnConsola() {
 
     console.log('=== Estadísticas ===');
     console.log(estadisticas);
+}
+
+function mostrarNotificaciones() {
+    const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+    if (!usuarioActual) return;
+
+    const notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || {};
+    const misNotificaciones = notificaciones[usuarioActual.usuario] || [];
+
+    if (misNotificaciones.length === 0) {
+        alert('No tienes notificaciones');
+        return;
+    }
+
+    // Crear un contenedor para las notificaciones
+    const contenidoNotificaciones = misNotificaciones.map((notif, index) => {
+        const tipoClase = notif.tipo === 'confirmada' ? 'text-success' : 'text-danger';
+        const icono = notif.tipo === 'confirmada' ? '✅' : '❌';
+        return `
+            <div class="notification-item mb-3 p-3 border rounded ${tipoClase}">
+                ${icono} ${notif.mensaje}
+            </div>
+        `;
+    }).join('');
+
+    // Crear y mostrar el modal de Bootstrap
+    const modalHTML = `
+        <div class="modal fade" id="notificacionesModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Notificaciones</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        ${contenidoNotificaciones}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-custom-yellow" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Agregar el modal al documento
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Mostrar el modal
+    const modal = new bootstrap.Modal(document.getElementById('notificacionesModal'));
+    modal.show();
+
+    // Eliminar el modal del DOM cuando se cierre
+    document.getElementById('notificacionesModal').addEventListener('hidden.bs.modal', function () {
+        this.remove();
+    });
+
+    // Marcar notificaciones como leídas
+    marcarNotificacionesComoLeidas(usuarioActual.usuario);
+    document.getElementById('notificacionIndicador').classList.add('d-none');
 } 
