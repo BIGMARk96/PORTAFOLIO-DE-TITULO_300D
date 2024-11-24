@@ -1,0 +1,58 @@
+/* Estilos para las tarjetas */
+.card {
+    border: 2px solid #000000;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Estilos para los botones amarillos */
+.btn.btn-custom-yellow {
+    background-color: #ffd700 !important;
+    border-color: #ffd700 !important;
+    color: #000000 !important;
+    font-weight: 500;
+}
+
+.btn.btn-custom-yellow:hover {
+    background-color: #ffed4a !important;
+    border-color: #ffed4a !important;
+    color: #000000 !important;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #000000 !important;
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.navbar-brand img {
+    filter: brightness(0) invert(1);
+}
+
+.bi-bell-fill {
+    color: #ffffff;
+}
+
+/* Botón salir */
+.btn.btn-outline-custom {
+    background-color: #ffd700 !important;
+    border-color: #ffd700 !important;
+    color: #000000 !important;
+}
+
+.btn.btn-outline-custom:hover {
+    background-color: #ffed4a !important;
+    border-color: #ffed4a !important;
+    color: #000000 !important;
+}
+
+/* Mensaje de bienvenida */
+#welcomeMessage {
+    color: #ffffff;
+}

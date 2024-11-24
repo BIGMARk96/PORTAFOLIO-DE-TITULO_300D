@@ -49,8 +49,8 @@
           <div class="card-body text-center">
             <h3 class="mb-4">¿Eres Nutricionista?</h3>
             <div class="d-flex justify-content-center gap-3">
-              <a href="registro-nutri.html" class="btn btn-success btn-lg">Registro Nutricionista</a>
-              <a href="ingresa-nutri.html" class="btn btn-success btn-lg">Ingreso Nutricionista</a>
+              <a href="registro-nutri.html" class="btn btn-custom-yellow btn-lg">Registro Nutricionista</a>
+              <a href="ingresa-nutri.html" class="btn btn-custom-yellow btn-lg">Ingreso Nutricionista</a>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@
         welcomeContainer.innerHTML = `
           <h2 class="mb-4">¡Hola ${nutricionistaActual.nombre}!</h2>
           <p class="mb-4">Bienvenido a tu espacio de trabajo</p>
-          <a href="panel-nutri.html" class="btn btn-success btn-lg">Ir a tu Panel</a>
+          <a href="panel-nutri.html" class="btn btn-custom-yellow btn-lg">Ir a tu Panel</a>
         `;
         if (accesoNutriContainer) {
           accesoNutriContainer.style.display = 'none';
@@ -81,16 +81,16 @@
           <h2 class="mb-4">¡Hola ${usuarioActual.usuario}!</h2>
           <p class="mb-4">Bienvenido a tu espacio personal de entrenamiento</p>
           <div class="d-flex gap-3 justify-content-center">
-            <a href="form-usuario.html" class="btn btn-primary btn-lg">Calculadora de Calorías y Rutina</a>
-            <a href="gestion-hora.html" class="btn btn-success btn-lg">Gestionar Horas Nutricionista</a>
+            <a href="form-usuario.html" class="btn btn-custom-yellow btn-lg">Calculadora de Calorías y Rutina</a>
+            <a href="gestion-hora.html" class="btn btn-custom-yellow btn-lg">Gestionar Horas Nutricionista</a>
           </div>
         `;
       } else {
         welcomeContainer.innerHTML = `
           <h2 class="mb-4">Bienvenido a Inicia Tu Gym</h2>
           <div class="d-flex gap-3 justify-content-center">
-            <a href="registro.html" class="btn btn-primary btn-lg">Registrate</a>
-            <a href="ingresa.html" class="btn btn-primary btn-lg">Ingresa</a>
+            <a href="registro.html" class="btn btn-custom-yellow btn-lg">Registrate</a>
+            <a href="ingresa.html" class="btn btn-custom-yellow btn-lg">Ingresa</a>
           </div>
         `;
       }
