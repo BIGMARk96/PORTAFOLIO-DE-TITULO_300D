@@ -117,7 +117,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         window.onload = function() {
             const resultados = JSON.parse(localStorage.getItem('resultadosCalorias'));
@@ -157,50 +158,89 @@
             }
         };
         
-        function descargarPDF() {
+        async function descargarPDF() {
             const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
             const resultados = JSON.parse(localStorage.getItem('resultadosCalorias'));
             
+            // Crear contenedor para el PDF
             const element = document.createElement('div');
+            element.style.width = '210mm';
+            element.style.backgroundColor = 'white';
+            element.style.padding = '20px';
+            
+            // Contenido del PDF
             element.innerHTML = `
-                <div style="padding: 20px;">
-                    <h1 style="text-align: center;">Rutina de Entrenamiento - Inicia Tu Gym</h1>
-                    <h2 style="text-align: center;">Plan personalizado para ${usuarioActual.usuario}</h2>
-                    
-                    <div style="margin-top: 20px;">
-                        <h3>Información Nutricional</h3>
-                        <p>Calorías Diarias: ${resultados.caloriasDiarias} kcal</p>
-                        <p>TMB: ${resultados.tmb} kcal</p>
-                        <p>Objetivo: ${resultados.objetivo === 'superavit' ? 'Aumentar masa muscular' : 
-                                    resultados.objetivo === 'deficit' ? 'Bajar grasa corporal' : 
-                                    'Mantener peso actual'}</p>
-                    </div>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h1 style="font-size: 24px; color: #333;">Rutina de Entrenamiento</h1>
+                    <h2 style="font-size: 18px; color: #666;">Plan para ${usuarioActual.usuario}</h2>
+                </div>
 
-                    <div style="margin-top: 20px;">
-                        <h3>Rutina de Entrenamiento</h3>
-                        ${Object.entries(resultados.rutina).map(([dia, rutina]) => `
-                            <div style="margin-top: 10px;">
-                                <h4>${dia} - ${rutina.titulo}</h4>
-                                <ul>
-                                    ${rutina.ejercicios.map(ejercicio => `
-                                        <li>${ejercicio}</li>
-                                    `).join('')}
-                                </ul>
-                            </div>
-                        `).join('')}
-                    </div>
+                <div style="background-color: #f8f9fa; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+                    <h3 style="font-size: 16px; color: #333; margin-bottom: 10px;">Información Nutricional</h3>
+                    <p style="margin: 5px 0; font-size: 14px;">
+                        <strong>Calorías Diarias:</strong> ${resultados.caloriasDiarias} kcal<br>
+                        <strong>TMB:</strong> ${resultados.tmb} kcal<br>
+                        <strong>Objetivo:</strong> ${
+                            resultados.objetivo === 'superavit' ? 'Aumentar masa muscular' : 
+                            resultados.objetivo === 'deficit' ? 'Bajar grasa corporal' : 
+                            'Mantener peso actual'
+                        }
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 16px; color: #333; margin-bottom: 15px;">Rutina Semanal</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        ${['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+                            .map(dia => {
+                                const rutinaDia = resultados.rutina[dia];
+                                return `
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #ddd; background-color: #f8f9fa;">
+                                            <h4 style="font-size: 14px; color: #333; margin: 0 0 10px 0;">
+                                                ${dia} - ${rutinaDia ? rutinaDia.titulo : 'Descanso'}
+                                            </h4>
+                                            ${rutinaDia ? `<ul style="margin: 0; padding-left: 20px; font-size: 12px;">
+                                                ${rutinaDia.ejercicios.map(ejercicio => 
+                                                    `<li style="margin-bottom: 5px;">${ejercicio}</li>`
+                                                ).join('')}
+                                            </ul>` : ''}
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                    </table>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border-radius: 5px;">
+                    <h4 style="font-size: 14px; color: #856404; margin-bottom: 10px;">¡Importante!</h4>
+                    <p style="font-size: 12px; color: #856404; margin: 0;">
+                        Recuerda seguir esta rutina y calorías como mínimo 3 meses. 
+                        Ten presente que cualquiera sea tu objetivo requiere tiempo y adherencia.
+                    </p>
                 </div>
             `;
 
-            const opt = {
-                margin: 1,
-                filename: 'rutina-entrenamiento.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
-            };
+            // Agregar al documento
+            document.body.appendChild(element);
 
-            html2pdf().set(opt).from(element).save();
+            // Usar html2canvas para capturar el contenido
+            const canvas = await html2canvas(element, { scale: 2 });
+            const imgData = canvas.toDataURL('image/png');
+
+            // Crear un nuevo documento PDF
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            // Agregar la imagen al PDF
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save(`rutina-${usuarioActual.usuario}.pdf`);
+
+            // Eliminar el elemento temporal
+            document.body.removeChild(element);
         }
     </script>
 </body>
