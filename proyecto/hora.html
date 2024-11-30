@@ -97,7 +97,28 @@
             const nutricionistas = JSON.parse(localStorage.getItem('nutricionistas')) || [];
             const contenedor = document.getElementById('listaHorariosNutris');
 
-            if (horarios.length === 0) {
+            const reservas = JSON.parse(localStorage.getItem('reservasNutri')) || [];
+
+            // Filtrar horarios que ya están reservados
+            const horariosDisponibles = horarios.filter(horario => {
+                return !reservas.some(reserva => 
+                    reserva.fecha === horario.fecha && 
+                    reserva.hora === horario.horaInicio && 
+                    reserva.nutricionistaId === horario.nutricionistaId &&
+                    (reserva.estado === 'pendiente' || reserva.estado === 'confirmada')
+                );
+            });
+
+            // Usar horariosDisponibles en lugar de horarios
+            const horariosPorNutricionista = {};
+            horariosDisponibles.forEach(horario => {
+                if (!horariosPorNutricionista[horario.nutricionistaId]) {
+                    horariosPorNutricionista[horario.nutricionistaId] = [];
+                }
+                horariosPorNutricionista[horario.nutricionistaId].push(horario);
+            });
+
+            if (horariosDisponibles.length === 0) {
                 contenedor.innerHTML = `
                     <div class="col-12 text-center">
                         <p class="lead">No hay horarios disponibles en este momento</p>
@@ -105,15 +126,6 @@
                 `;
                 return;
             }
-
-            // Agrupar horarios por nutricionista
-            const horariosPorNutricionista = {};
-            horarios.forEach(horario => {
-                if (!horariosPorNutricionista[horario.nutricionistaId]) {
-                    horariosPorNutricionista[horario.nutricionistaId] = [];
-                }
-                horariosPorNutricionista[horario.nutricionistaId].push(horario);
-            });
 
             // Generar HTML para cada nutricionista y sus horarios
             const horariosHTML = Object.entries(horariosPorNutricionista).map(([nutricionistaId, horariosNutri]) => {
@@ -163,6 +175,21 @@
 
             // Verificar si el usuario ya tiene una hora reservada
             const reservas = JSON.parse(localStorage.getItem('reservasNutri')) || [];
+            
+            // Verificar si la hora sigue disponible
+            const horaYaReservada = reservas.some(r => 
+                r.fecha === fecha && 
+                r.hora === hora && 
+                r.nutricionistaId === nutricionistaId &&
+                (r.estado === 'pendiente' || r.estado === 'confirmada')
+            );
+
+            if (horaYaReservada) {
+                alert('Lo sentimos, esta hora ya ha sido reservada por otro usuario.');
+                location.reload();
+                return;
+            }
+
             const reservasUsuario = reservas.filter(r => 
                 r.usuarioId === usuarioActual.usuario && 
                 (r.estado === 'pendiente' || r.estado === 'confirmada')
@@ -190,11 +217,19 @@
             botonReserva.disabled = true;
             botonReserva.innerHTML = 'Hora Reservada';
             
-            // Agregar mensaje de confirmación
             const mensajeDiv = document.createElement('div');
             mensajeDiv.className = 'alert alert-success mt-2';
             mensajeDiv.innerHTML = 'Gracias por tu reserva. Esperaremos la confirmación del nutricionista.';
             botonReserva.parentNode.appendChild(mensajeDiv);
+
+            // Deshabilitar todos los demás botones de reserva
+            const todosLosBotones = document.querySelectorAll('.btn-custom-yellow');
+            todosLosBotones.forEach(btn => {
+                if (btn !== botonReserva) {
+                    btn.disabled = true;
+                    btn.innerHTML = 'No disponible';
+                }
+            });
         }
     </script>
 </body>
