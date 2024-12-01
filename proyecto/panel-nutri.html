@@ -246,6 +246,7 @@
 
         function actualizarListaReservasConfirmadas() {
             const reservas = JSON.parse(localStorage.getItem('reservasNutri')) || [];
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
             const nutricionistaId = JSON.parse(localStorage.getItem('nutricionistaActual')).usuario;
             const listaReservasConfirmadas = document.getElementById('listaReservasConfirmadas');
             
@@ -259,18 +260,22 @@
                 return;
             }
 
-            listaReservasConfirmadas.innerHTML = reservasConfirmadas.map(r => `
-                <div class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>Usuario:</strong> ${r.nombreUsuario}<br>
-                            <strong>Fecha:</strong> ${r.fecha}<br>
-                            <strong>Hora:</strong> ${r.hora}
+            listaReservasConfirmadas.innerHTML = reservasConfirmadas.map(r => {
+                const usuario = usuarios.find(u => u.usuario === r.usuarioId);
+                return `
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Usuario:</strong> ${r.nombreUsuario}<br>
+                                <strong>Email:</strong> ${usuario ? usuario.email : 'No disponible'}<br>
+                                <strong>Fecha:</strong> ${r.fecha}<br>
+                                <strong>Hora:</strong> ${r.hora}
+                            </div>
+                            <span class="badge bg-warning">Confirmada</span>
                         </div>
-                        <span class="badge bg-warning">Confirmada</span>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function gestionarReserva(fecha, hora, usuarioId, estado) {
