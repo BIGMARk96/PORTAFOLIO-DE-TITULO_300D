@@ -140,6 +140,7 @@
                 <p><strong>Nombre:</strong> ${nutricionista.nombre}</p>
                 <p><strong>Licencia:</strong> ${nutricionista.numeroLicencia}</p>
                 <p><strong>Email:</strong> ${nutricionista.email}</p>
+                <p><strong>Previsiones aceptadas:</strong> ${nutricionista.previsiones ? nutricionista.previsiones.map(p => p.toUpperCase()).join(', ') : 'No especificadas'}</p>
             `;
 
             // Inicializar calendario

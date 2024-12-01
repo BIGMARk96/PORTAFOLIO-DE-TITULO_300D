@@ -322,7 +322,14 @@ function guardarNutricionista(event) {
     const numeroLicencia = document.getElementById('numeroLicencia').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+    
+    // Obtener las previsiones seleccionadas
+    const previsiones = [];
+    ['fonasa', 'isapre', 'particular'].forEach(tipo => {
+        if (document.getElementById(tipo).checked) {
+            previsiones.push(tipo);
+        }
+    });
 
     // Validar nombre y apellido
     if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ]+ [A-Za-zÁáÉéÍíÓóÚúÑñ]+$/.test(nombre)) {
@@ -356,32 +363,22 @@ function guardarNutricionista(event) {
         return;
     }
 
-    // Validar que las contraseñas coincidan
-    if (password !== confirmPassword) {
-        alert('Las contraseñas no coinciden');
-        return;
-    }
-
     const nutricionista = {
         nombre,
         usuario,
         numeroLicencia,
         email,
         password,
-        tipo: 'nutricionista',
-        fechaRegistro: new Date().toISOString()
+        previsiones,
+        tipo: 'nutricionista'
     };
 
     let nutricionistas = JSON.parse(localStorage.getItem('nutricionistas')) || [];
     nutricionistas.push(nutricionista);
     localStorage.setItem('nutricionistas', JSON.stringify(nutricionistas));
 
-    // Mostrar en consola
-    console.log('Nuevo nutricionista registrado:', nutricionista);
-    console.log('Lista completa de nutricionistas:', nutricionistas);
-
     alert('Registro exitoso');
-    window.location.href = 'index.html';
+    window.location.href = 'ingresa-nutri.html';
 }
 
 function validarIngresoNutri(event) {
