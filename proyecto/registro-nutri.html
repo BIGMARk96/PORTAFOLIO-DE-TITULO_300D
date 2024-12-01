@@ -82,14 +82,20 @@
                         <label for="confirmPassword">Repetir contraseña</label>
                     </div>
 
-                    <div class="form-floating mb-3">
-                        <select class="form-select" id="prevision" required>
-                            <option value="">Selecciona una opción</option>
-                            <option value="fonasa">Fonasa</option>
-                            <option value="isapre">Isapre</option>
-                            <option value="particular">Particular</option>
-                        </select>
-                        <label for="prevision">¿Qué previsión aceptas?</label>
+                    <div class="mb-3">
+                        <label class="form-label">¿Qué previsiones aceptas?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="fonasa" name="prevision" value="fonasa">
+                            <label class="form-check-label" for="fonasa">Fonasa</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="isapre" name="prevision" value="isapre">
+                            <label class="form-check-label" for="isapre">Isapre</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="particular" name="prevision" value="particular">
+                            <label class="form-check-label" for="particular">Particular</label>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-custom-yellow btn-lg">Registrarse como Nutricionista</button>
