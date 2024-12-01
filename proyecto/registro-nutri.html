@@ -35,7 +35,7 @@
     <main class="container py-5 flex-grow-1">
         <div class="card">
             <div class="card-body">
-                <h2 class="text-center">Registro de Nutricionista</h2>
+                <h2 class="text-center mb-4 bg-dark text-white p-2 rounded">Registro de Nutricionista</h2>
                 <form id="registroNutriForm" onsubmit="guardarNutricionista(event)">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="nombre" 
@@ -80,6 +80,16 @@
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="confirmPassword" required>
                         <label for="confirmPassword">Repetir contraseña</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="prevision" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="fonasa">Fonasa</option>
+                            <option value="isapre">Isapre</option>
+                            <option value="particular">Particular</option>
+                        </select>
+                        <label for="prevision">¿Qué previsión aceptas?</label>
                     </div>
 
                     <button type="submit" class="btn btn-custom-yellow btn-lg">Registrarse como Nutricionista</button>
