@@ -39,6 +39,16 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h3 class="text-center mb-4 bg-dark text-white p-2 rounded">Mi Perfil</h3>
+                        <div class="text-center mb-4">
+                            <img id="fotoPerfil" src="image/default-profile.png" alt="Foto de perfil" 
+                                 class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                            <div>
+                                <input type="file" id="inputFoto" accept="image/*" class="d-none" onchange="cambiarFotoPerfil(event)">
+                                <button class="btn btn-custom-yellow" onclick="document.getElementById('inputFoto').click()">
+                                    Cambiar foto
+                                </button>
+                            </div>
+                        </div>
                         <div id="perfilNutri"></div>
                     </div>
                 </div>
@@ -133,6 +143,11 @@
             if (!nutricionista) {
                 window.location.href = 'ingresa-nutri.html';
                 return;
+            }
+
+            // Cargar foto de perfil si existe
+            if (nutricionista.fotoPerfil) {
+                document.getElementById('fotoPerfil').src = nutricionista.fotoPerfil;
             }
 
             // Mostrar información del nutricionista
@@ -282,6 +297,21 @@
             actualizarListaReservas();
             actualizarListaReservasConfirmadas();
             alert(`Reserva ${estado} exitosamente`);
+        }
+
+        function cambiarFotoPerfil(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const nutricionista = JSON.parse(localStorage.getItem('nutricionistaActual'));
+                    nutricionista.fotoPerfil = e.target.result;
+                    localStorage.setItem('nutricionistaActual', JSON.stringify(nutricionista));
+                    
+                    document.getElementById('fotoPerfil').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         }
     </script>
 </body>
