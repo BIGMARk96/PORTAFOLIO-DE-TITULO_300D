@@ -35,39 +35,44 @@
 
     <!-- formulario registro -->
     <main class="container py-5 flex-grow-1">
-        <form id="registroForm" onsubmit="guardarUsuario(event)">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="usuario" 
-                       pattern=".{6,}" 
-                       title="El usuario debe tener al menos 6 caracteres"
-                       placeholder="Juan" required>
-                <label for="usuario">Tu usuario (mínimo 6 caracteres)</label>
-            </div>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center mb-4 bg-dark text-white p-2 rounded">Regístrate</h2>
+                <form id="registroForm" onsubmit="guardarUsuario(event)">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="usuario" 
+                               pattern=".{6,}" 
+                               title="El usuario debe tener al menos 6 caracteres"
+                               placeholder="Juan" required>
+                        <label for="usuario">Tu usuario (mínimo 6 caracteres)</label>
+                    </div>
 
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" 
-                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                       title="Ingresa un correo electrónico válido"
-                       placeholder="nombre@ejemplo.com" required>
-                <label for="email">Tu correo electrónico</label>
-            </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" 
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                               title="Ingresa un correo electrónico válido"
+                               placeholder="nombre@ejemplo.com" required>
+                        <label for="email">Tu correo electrónico</label>
+                    </div>
 
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" 
-                       pattern="(?=.*[A-Z])(?=.*[0-9]).{6,}"
-                       title="La contraseña debe tener al menos 6 caracteres, una mayúscula y un número"
-                       placeholder="Password" required>
-                <label for="password">Password (mínimo 6 caracteres, una mayúscula y un número)</label>
-            </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" 
+                               pattern="(?=.*[A-Z])(?=.*[0-9]).{6,}"
+                               title="La contraseña debe tener al menos 6 caracteres, una mayúscula y un número"
+                               placeholder="Password" required>
+                        <label for="password">Password (mínimo 6 caracteres, una mayúscula y un número)</label>
+                    </div>
 
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="confirmPassword" 
-                       placeholder="Password" required>
-                <label for="confirmPassword">Repite tu password</label>
-            </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="confirmPassword" 
+                               placeholder="Password" required>
+                        <label for="confirmPassword">Repite tu password</label>
+                    </div>
 
-            <button type="submit" class="btn btn-custom-yellow btn-lg">Registrate</button>
-        </form>
+                    <button type="submit" class="btn btn-custom-yellow btn-lg">Registrate</button>
+                </form>
+            </div>
+        </div>
     </main>
     <!-- fin formulario registro -->
 
