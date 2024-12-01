@@ -152,6 +152,9 @@
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Dr(a). ${nutricionista.nombre}</h5>
                                 <small>Licencia: ${nutricionista.numeroLicencia}</small>
+                                <div class="mt-2">
+                                    <small class="d-block">Previsiones aceptadas: ${nutricionista.previsiones ? nutricionista.previsiones.map(p => p.toUpperCase()).join(', ') : 'No especificadas'}</small>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="horarios-container">
