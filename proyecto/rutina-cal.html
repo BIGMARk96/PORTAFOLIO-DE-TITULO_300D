@@ -4,38 +4,144 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rutina</title>
-  <link href='/style.css' rel='stylesheet'>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="./style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- navbar -->
     <header>
-      <nav class="navbar bg-body-tertiary">
+      <nav class="navbar">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="image/dumbbells.svg" alt="Logo" width="60" height="54" class="d-inline-block align-text-top">
-            Inicia Tu Gym
+          <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <img src="image/dumbbells.svg" alt="Logo" width="80" height="74" class="d-inline-block">
+            <span class="brand-text ms-3">Inicia Tu Gym</span>
           </a>
-          <div>
-            <button class="btn btn-outline-success me-2" type="button">Salir</button>
+          <div class="d-flex align-items-center">
+            <span class="me-3" id="welcomeMessage"></span>
+            <div class="position-relative d-inline-block me-3">
+                <i class="bi bi-bell-fill fs-5" style="cursor: pointer;" onclick="mostrarNotificaciones()"></i>
+                <span id="notificacionIndicador" class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle d-none">
+                    <span class="visually-hidden">Notificaciones sin leer</span>
+                </span>
+            </div>
+            <button class="btn btn-outline-custom me-2" type="button" onclick="cerrarSesion()">Salir</button>
           </div>
         </div>
       </nav>
     </header>
     <!-- fin navbar -->
 
-    <!-- resultado calorias -->
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-body">
-                <h2>Tus Resultados</h2>
-                <div id="resultados"></div>
+    <!-- Contenido principal -->
+    <main class="container py-5 flex-grow-1">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Resultados calorías -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4 bg-dark text-white p-2 rounded">Tus Resultados</h2>
+                        <div id="resultados"></div>
+                    </div>
+                </div>
+
+                <!-- Rutina Semanal -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4 bg-dark text-white p-2 rounded">Tu Rutina Semanal</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Lunes</th>
+                                        <th>Martes</th>
+                                        <th>Miércoles</th>
+                                        <th>Jueves</th>
+                                        <th>Viernes</th>
+                                        <th>Sábado</th>
+                                        <th>Domingo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aviso importante -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="text-center mb-3 bg-danger text-warning p-2 rounded">¡Importante!</h4>
+                        <p class="mb-3">
+                            <strong>Recuerda seguir esta rutina y calorías como mínimo 3 meses</strong>. 
+                            Ten presente que cualquiera sea tu objetivo requiere tiempo y adherencia.
+                        </p>
+                        <p class="mb-3">
+                            Por eso te invitamos a volver aquí cuando veas una variación importante en tu peso 
+                            o quieras agregar/quitar días a tu rutina.
+                        </p>
+                        <p class="text-center mb-0">
+                            <em>¡Suerte y vamos que se puede!</em> 💪
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="text-center mb-4">
+                    <button class="btn btn-custom-yellow btn-lg" onclick="descargarPDF()">
+                        Descargar Rutina PDF
+                    </button>
+                </div>
+
+                <!-- Sección de ayuda nutricional -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="mb-4 bg-dark text-white p-2 rounded">¿Necesitas ayuda nutricional?</h3>
+                        <p class="lead mb-4">Aquí tenemos profesionales disponibles para ayudarte</p>
+                        <a href="hora.html" class="btn btn-custom-yellow btn-lg">Ver Nutricionistas Disponibles</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <footer class="navbar py-3 mt-auto">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span class="text-white">&copy; 2024 Inicia Tu Gym</span>
+            <div class="text-center">
+                <p class="text-white">¿Te gustó la herramienta? Apoyar haciendo una donación.</p>
+                <a href="https://www.paypal.com/cl/home" target="_blank">
+                    <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" alt="Donate with PayPal button">
+                </a>
+            </div>
+            <div>
+                <a href="https://www.facebook.com" target="_blank" class="text-white me-3">
+                    <i class="bi bi-facebook"></i>
+                </a>
+                <a href="https://www.twitter.com" target="_blank" class="text-white me-3">
+                    <i class="bi bi-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" class="text-white">
+                    <i class="bi bi-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         window.onload = function() {
             const resultados = JSON.parse(localStorage.getItem('resultadosCalorias'));
@@ -46,23 +152,119 @@
 
             const resultadosDiv = document.getElementById('resultados');
             resultadosDiv.innerHTML = `
-                <div class="alert alert-success">
-                    <h3>Calorías Diarias Recomendadas: ${resultados.caloriasDiarias} kcal</h3>
-                    <p>Tasa Metabólica Basal (TMB): ${resultados.tmb} kcal</p>
-                    <p>Objetivo: ${resultados.objetivo === 'superavit' ? 'Aumentar masa muscular' : 
-                                resultados.objetivo === 'deficit' ? 'Bajar grasa corporal' : 
-                                'Mantener peso actual'}</p>
-                    <hr>
-                    <p>Datos ingresados:</p>
-                    <ul>
-                        <li>Sexo: ${resultados.datosUsuario.sexo}</li>
-                        <li>Edad: ${resultados.datosUsuario.edad} años</li>
-                        <li>Peso: ${resultados.datosUsuario.peso} kg</li>
-                        <li>Altura: ${resultados.datosUsuario.altura} cm</li>
-                    </ul>
+                <div class="text-center">
+                    <p class="h5 mb-3">Tus calorías diarias: ${resultados.caloriasDiarias} kcal</p>
+                    <p class="h5 mb-3">Tu TMB: ${resultados.tmb} kcal</p>
+                    <p class="h5 mb-3">Tu objetivo: ${resultados.objetivo === 'superavit' ? 'Aumentar masa muscular' : 
+                                      resultados.objetivo === 'deficit' ? 'Bajar grasa corporal' : 
+                                      'Mantener peso actual'}</p>
                 </div>
             `;
+
+            if (resultados && resultados.rutina) {
+                const tbody = document.querySelector('table tbody tr');
+                const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+                
+                dias.forEach((dia, index) => {
+                    const rutinaDia = resultados.rutina[dia];
+                    if (rutinaDia) {
+                        tbody.cells[index].innerHTML = `
+                            <h5>${rutinaDia.titulo}</h5>
+                            <ul class="list-unstyled">
+                                ${rutinaDia.ejercicios.map(ej => `<li>${ej}</li>`).join('')}
+                            </ul>
+                        `;
+                    } else {
+                        tbody.cells[index].innerHTML = '<p class="text-muted">Descanso</p>';
+                    }
+                });
+            }
         };
+        
+        async function descargarPDF() {
+            const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+            const resultados = JSON.parse(localStorage.getItem('resultadosCalorias'));
+            
+            // Crear contenedor para el PDF
+            const element = document.createElement('div');
+            element.style.width = '210mm';
+            element.style.backgroundColor = 'white';
+            element.style.padding = '20px';
+            
+            // Contenido del PDF
+            element.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h1 style="font-size: 24px; color: #333;">Rutina de Entrenamiento</h1>
+                    <h2 style="font-size: 18px; color: #666;">Plan para ${usuarioActual.usuario}</h2>
+                </div>
+
+                <div style="background-color: #f8f9fa; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+                    <h3 style="font-size: 16px; color: #333; margin-bottom: 10px;">Información Nutricional</h3>
+                    <p style="margin: 5px 0; font-size: 14px;">
+                        <strong>Calorías Diarias:</strong> ${resultados.caloriasDiarias} kcal<br>
+                        <strong>TMB:</strong> ${resultados.tmb} kcal<br>
+                        <strong>Objetivo:</strong> ${
+                            resultados.objetivo === 'superavit' ? 'Aumentar masa muscular' : 
+                            resultados.objetivo === 'deficit' ? 'Bajar grasa corporal' : 
+                            'Mantener peso actual'
+                        }
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 16px; color: #333; margin-bottom: 15px;">Rutina Semanal</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        ${['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+                            .map(dia => {
+                                const rutinaDia = resultados.rutina[dia];
+                                return `
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #ddd; background-color: #f8f9fa;">
+                                            <h4 style="font-size: 14px; color: #333; margin: 0 0 10px 0;">
+                                                ${dia} - ${rutinaDia ? rutinaDia.titulo : 'Descanso'}
+                                            </h4>
+                                            ${rutinaDia ? `<ul style="margin: 0; padding-left: 20px; font-size: 12px;">
+                                                ${rutinaDia.ejercicios.map(ejercicio => 
+                                                    `<li style="margin-bottom: 5px;">${ejercicio}</li>`
+                                                ).join('')}
+                                            </ul>` : ''}
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                    </table>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border-radius: 5px;">
+                    <h4 style="font-size: 14px; color: #856404; margin-bottom: 10px;">¡Importante!</h4>
+                    <p style="font-size: 12px; color: #856404; margin: 0;">
+                        Recuerda seguir esta rutina y calorías como mínimo 3 meses. 
+                        Ten presente que cualquiera sea tu objetivo requiere tiempo y adherencia.
+                    </p>
+                </div>
+            `;
+
+            // Agregar al documento
+            document.body.appendChild(element);
+
+            // Usar html2canvas para capturar el contenido
+            const canvas = await html2canvas(element, { scale: 2 });
+            const imgData = canvas.toDataURL('image/png');
+
+            // Crear un nuevo documento PDF
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            // Agregar la imagen al PDF
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save(`rutina-${usuarioActual.usuario}.pdf`);
+
+            // Eliminar el elemento temporal
+            document.body.removeChild(element);
+        }
     </script>
 </body>
 </html>
